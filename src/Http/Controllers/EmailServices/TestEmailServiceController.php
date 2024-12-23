@@ -39,6 +39,9 @@ class TestEmailServiceController extends Controller
         $options->setFromEmail($request->input('from'));
         $options->setSubject($request->input('subject'));
         $options->setTo($request->input('to'));
+        if($request->input('reply_to')) {
+            $options->setReplyTo($request->input('reply_to'));
+        }
         $options->setBody($request->input('body'));
 
         try {

@@ -100,6 +100,7 @@ class DispatchMessage
             ->setTo($message->recipient_email)
             ->setFromEmail($message->from_email)
             ->setFromName($message->from_name)
+            ->setReplyTo($message->reply_to)
             ->setSubject($message->subject)
             ->setTrackingOptions($trackingOptions);
 

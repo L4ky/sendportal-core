@@ -47,6 +47,10 @@
                     <td><b>{{ __('From') }}:</b></td>
                     <td>{{ $message->from_name }} &lt;{{ $message->from_email }}&gt;</td>
                 </tr>
+                <tr>
+                    <td><b>{{ __('Reply To') }}:</b></td>
+                    <td>{{ $message->reply_to }} &lt;{{ $message->reply_to }}&gt;</td>
+                </tr>
                 </tbody>
             </table>
 
