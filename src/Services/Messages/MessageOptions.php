@@ -16,6 +16,9 @@ class MessageOptions
     private $fromName;
 
     /** @var string */
+    private $replyTo;
+    
+    /** @var string */
     private $subject;
 
     /** @var string */
@@ -66,6 +69,21 @@ class MessageOptions
     {
         $this->fromName = $fromName;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReplyTo(): string
+    {
+        return $this->replyTo;
+    }
+
+    public function setReplyTo(string $replyTo): self
+    {
+        $this->replyTo = $replyTo;
+    
         return $this;
     }
 

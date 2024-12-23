@@ -27,6 +27,7 @@ class MessageFactory extends Factory
             'subject' => $this->faker->sentence(3),
             'from_name' => $this->faker->name(),
             'from_email' => 'testing@sendportal.test',
+            'reply_to' => $this->faker->email(),
             'message_id' => null,
             'ip' => $this->faker->ipv4(),
             'open_count' => 0,

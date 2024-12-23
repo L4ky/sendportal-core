@@ -21,10 +21,10 @@ class SmtpAdapter extends BaseMailAdapter
     /** @var EsmtpTransport */
     protected $transport;
 
-    public function send(string $fromEmail, string $fromName, string $toEmail, string $subject, MessageTrackingOptions $trackingOptions, string $content): string
+    public function send(string $fromEmail, string $fromName, string $replyTo, string $toEmail, string $subject, MessageTrackingOptions $trackingOptions, string $content): string
     {
         try {
-            $result = $this->resolveClient()->send($this->resolveMessage($subject, $content, $fromEmail, $fromName, $toEmail));
+            $result = $this->resolveClient()->send($this->resolveMessage($subject, $content, $fromEmail, $fromName, $replyTo, $toEmail));
         } catch (TransportException $e) {
             return $this->resolveMessageId(0);
         }
@@ -70,11 +70,12 @@ class SmtpAdapter extends BaseMailAdapter
         return $this->transport;
     }
 
-    protected function resolveMessage(string $subject, string $content, string $fromEmail, string $fromName, string $toEmail): Email
+    protected function resolveMessage(string $subject, string $content, string $fromEmail, string $fromName, $replyTo, string $toEmail): Email
     {
         $msg = (new Email())
             ->from(new Address($fromEmail, $fromName))
             ->to($toEmail)
+            ->replyTo($replyTo)
             ->subject($subject)
             ->html($content);
 

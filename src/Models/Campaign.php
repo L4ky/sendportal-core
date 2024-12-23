@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string|null $content
  * @property string|null $from_name
  * @property string|null $from_email
+ * @property string|null $reply_to
  * @property bool $is_open_tracking
  * @property bool $is_click_tracking
  * @property int|null $open_count
