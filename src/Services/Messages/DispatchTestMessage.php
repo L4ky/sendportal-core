@@ -75,7 +75,7 @@ class DispatchTestMessage
             'subject' => $options->getSubject(),
             'from_name' => 'Sendportal',
             'from_email' => $options->getFromEmail(),
-            'reply_to' => $options->getReplyTo(),
+            'reply_to' => $options->getReplyTo() != null ? $options->getReplyTo() : $options->getFromEmail(),
             'hash' => 'abc123',
         ]);
 
@@ -109,9 +109,12 @@ class DispatchTestMessage
             ->setTo($message->recipient_email)
             ->setFromEmail($message->from_email)
             ->setFromName($message->from_name)
-            ->setReplyTo($message->reply_to)
             ->setSubject($message->subject)
             ->setTrackingOptions($trackingOptions);
+
+        if($message->reply_to){
+            $messageOptions->setReplyTo($message->reply_to);
+        }
 
         $messageId = $this->relayMessage->handle($mergedContent, $messageOptions, $emailService);
 
