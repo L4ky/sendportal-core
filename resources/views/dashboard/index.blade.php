@@ -104,7 +104,7 @@
                         @empty
                             <tr>
                                 <td colspan="100%">
-                                    <p class="empty-table-text">{{ __('You have not completed any campaigns.') }}</p>
+                                    <p class="empty-table-text">{{ __('You have not completed any campaigns') }}</p>
                                 </td>
                             </tr>
                         @endforelse
@@ -157,7 +157,7 @@
                         @empty
                             <tr>
                                 <td colspan="100%">
-                                    <p class="empty-table-text">{{ __('No recent subscribers.') }}</p>
+                                    <p class="empty-table-text">{{ __('No recent subscribers') }}</p>
                                 </td>
                             </tr>
                         @endforelse
