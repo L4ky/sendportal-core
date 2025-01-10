@@ -196,6 +196,7 @@ class CampaignControllerTest extends TestCase
             'subject' => $this->faker->sentence(),
             'from_name' => $this->faker->name(),
             'from_email' => $this->faker->safeEmail(),
+            'reply_to' => $this->faker->safeEmail(),
             'email_service_id' => $campaign->email_service_id,
             'template_id' => $campaign->template_id,
             'content' => $this->faker->paragraph()
@@ -322,6 +323,7 @@ class CampaignControllerTest extends TestCase
             'subject' => $this->faker->sentence(),
             'from_name' => $this->faker->name(),
             'from_email' => $this->faker->safeEmail(),
+            'reply_to' => $this->faker->safeEmail(),
             'email_service_id' => $emailService->id,
             'template_id' => $template->id,
             'content' => $this->faker->paragraph()

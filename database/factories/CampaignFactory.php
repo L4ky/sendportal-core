@@ -24,6 +24,7 @@ class CampaignFactory extends Factory
             'subject' => $this->faker->title(),
             'from_name' => $this->faker->name(),
             'from_email' => $this->faker->email(),
+            'reply_to' => $this->faker->email(),
             'email_service_id' => EmailService::factory(),
             'is_open_tracking' => true,
             'is_click_tracking' => true,

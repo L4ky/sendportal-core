@@ -29,6 +29,7 @@ class RelayMessage
             ->send(
                 $messageOptions->getFromEmail(),
                 $messageOptions->getFromName(),
+                $messageOptions->getReplyTo() ? $messageOptions->getReplyTo() : $messageOptions->getFromEmail(),
                 $messageOptions->getTo(),
                 $messageOptions->getSubject(),
                 $messageOptions->getTrackingOptions(),
