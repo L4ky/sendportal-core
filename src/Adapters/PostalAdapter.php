@@ -23,7 +23,7 @@ class PostalAdapter extends BaseMailAdapter
         $message = new Message($client);
         $message->to($toEmail);
         $message->from($fromName.' <'.$fromEmail.'>');
-        $message->replyTo($toEmail);
+        $message->replyTo($replyTo);
         $message->subject($subject);
         $message->htmlBody($content);
         $response = $client->send->message($message);

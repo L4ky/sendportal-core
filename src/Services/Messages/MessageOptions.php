@@ -75,7 +75,7 @@ class MessageOptions
     /**
      * @return string
      */
-    public function getReplyTo(): string
+    public function getReplyTo(): ?string
     {
         return $this->replyTo;
     }
