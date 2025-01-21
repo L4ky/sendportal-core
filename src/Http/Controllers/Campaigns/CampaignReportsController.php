@@ -12,9 +12,13 @@ use Illuminate\View\View;
 use Sendportal\Base\Facades\Sendportal;
 use Sendportal\Base\Http\Controllers\Controller;
 use Sendportal\Base\Models\Campaign;
+use Sendportal\Base\Models\EmailService;
 use Sendportal\Base\Presenters\CampaignReportPresenter;
 use Sendportal\Base\Repositories\Campaigns\CampaignTenantRepositoryInterface;
 use Sendportal\Base\Repositories\Messages\MessageTenantRepositoryInterface;
+use Sendportal\Base\Repositories\EmailServiceTenantRepository;
+use Sendportal\Base\Repositories\TemplateTenantRepository;
+
 
 class CampaignReportsController extends Controller
 {
@@ -24,12 +28,22 @@ class CampaignReportsController extends Controller
     /** @var MessageTenantRepositoryInterface */
     protected $messageRepo;
 
+    /** @var EmailServiceTenantRepository */
+    protected $emailServices;
+
+    /** @var TemplateTenantRepository */
+    protected $templates;
+
     public function __construct(
         CampaignTenantRepositoryInterface $campaignRepository,
-        MessageTenantRepositoryInterface $messageRepo
+        MessageTenantRepositoryInterface $messageRepo,
+        EmailServiceTenantRepository $emailServices,
+        TemplateTenantRepository $templates
     ) {
         $this->campaignRepo = $campaignRepository;
         $this->messageRepo = $messageRepo;
+        $this->emailServices = $emailServices;
+        $this->templates = $templates;
     }
 
     /**
@@ -62,6 +76,41 @@ class CampaignReportsController extends Controller
         ];
 
         return view('sendportal::campaigns.reports.index', $data);
+    }
+
+    /**
+     * Show campaign report preview.
+     *
+     * @return RedirectResponse|View
+     * @throws Exception
+     */
+    public function preview(int $id, Request $request)
+    {
+        $campaign = $this->campaignRepo->find(Sendportal::currentWorkspaceId(), $id);
+
+        if ($campaign->draft) {
+            return redirect()->route('sendportal.campaigns.edit', $id);
+        }
+
+        if ($campaign->queued || $campaign->sending) {
+            return redirect()->route('sendportal.campaigns.status', $id);
+        }
+
+        $emailServices = $this->emailServices->all(Sendportal::currentWorkspaceId(), 'id', ['type'])
+            ->map(static function (EmailService $emailService) {
+                $emailService->formatted_name = "{$emailService->name} ({$emailService->type->name})";
+                return $emailService;
+            });
+        
+        $templates = [null => '- None -'] + $this->templates->pluck(Sendportal::currentWorkspaceId());
+
+        $data = [
+            'campaign' => $campaign,
+            'emailServices' => $emailServices,
+            'templates' => $templates
+        ];
+
+        return view('sendportal::campaigns.reports.preview', $data);
     }
 
     /**

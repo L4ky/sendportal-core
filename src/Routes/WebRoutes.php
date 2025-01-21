@@ -73,6 +73,7 @@ class WebRoutes
                     $campaignRouter->post('{id}/cancel', 'CampaignCancellationController@cancel')->name('cancel');
 
                     $campaignRouter->get('{id}/report', 'CampaignReportsController@index')->name('reports.index');
+                    $campaignRouter->get('{id}/report/preview', 'CampaignReportsController@preview')->name('reports.preview');
                     $campaignRouter->get('{id}/report/recipients', 'CampaignReportsController@recipients')
                         ->name('reports.recipients');
                     $campaignRouter->get('{id}/report/opens', 'CampaignReportsController@opens')->name('reports.opens');

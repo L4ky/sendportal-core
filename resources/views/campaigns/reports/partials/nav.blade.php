@@ -4,6 +4,10 @@
            href="{{ route('sendportal.campaigns.reports.index', $campaign->id) }}">{{ __('Overview') }}</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link {{ request()->route()->named('sendportal.campaigns.reports.preview') ? 'active'  : '' }}"
+           href="{{ route('sendportal.campaigns.reports.preview', $campaign->id) }}">{{ __('Campaign') }}</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link {{ request()->route()->named('sendportal.campaigns.reports.recipients') ? 'active'  : '' }}"
            href="{{ route('sendportal.campaigns.reports.recipients', $campaign->id) }}">{{ __('Recipients') }}</a>
     </li>
