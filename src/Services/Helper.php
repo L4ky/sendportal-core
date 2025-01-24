@@ -18,7 +18,9 @@ class Helper
         if (! $date) {
             return null;
         }
-
+        if ( ! $timezone) {
+            $timezone = 'UTC';
+        }
         return Carbon::parse($date)->copy()->tz($timezone);
     }
 
